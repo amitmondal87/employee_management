@@ -1,48 +1,26 @@
+import React from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Routes,
+    Link
+  } from "react-router-dom";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/style.css'
+
+import Registration from './pages/registration/Registration';
+import Login from "./pages/login/Login";
+import Dashboard from "./pages/dashboard/Dashboard";
 function App() {
   return (
-    
-    <>
-      <div className="authincation h-100">
-    <div className="container-fluid h-100">
-        <div className="row justify-content-center h-100 align-items-center">
-            <div className="col-md-6">
-                <div className="authincation-content">
-                    <div className="row no-gutters">
-                        <div className="col-xl-12">
-                            <div className="auth-form">
-                                <h4 className="text-center mb-4">Sign up your account</h4>
-                                <form action="index.html">
-                                    <div className="form-group">
-                                        <label><strong>Username</strong></label>
-                                        <input type="text" className="form-control" placeholder="username" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label><strong>Email</strong></label>
-                                        <input type="email" className="form-control" placeholder="hello@example.com" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label><strong>Password</strong></label>
-                                        <input type="password" className="form-control" value="Password" />
-                                    </div>
-                                    <div className="text-center mt-4">
-                                        <button type="submit" className="btn btn-primary btn-block">Sign me up</button>
-                                    </div>
-                                </form>
-                                <div className="new-account mt-3">
-                                    <p>Already have an account? <a className="text-primary" href="page-login.html">Sign in</a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    </>
-    
+    <React.Fragment>
+    <Routes>
+        <Route  path="/" element={<Login />} />
+        <Route  path="/register" element={<Registration />} />
+        <Route  path="/dashboard" element={<Dashboard />} />
+    </Routes>
+    </React.Fragment>
   );
 }
 
