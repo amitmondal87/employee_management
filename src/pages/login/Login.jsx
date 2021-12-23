@@ -109,6 +109,7 @@ if (isloggedin) return <Redirect to={{ pathname: '/dashboard' }} />
                                             name='password'
                                             id="password"
                                             placeholder="Enter password *"
+                                            maxLength={6}
                                             onChange={handleChange}
                                             value={values.password}
                                             onBlur={() => setFieldTouched("password")}

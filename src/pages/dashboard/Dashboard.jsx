@@ -1,4 +1,4 @@
-import react, { useState } from 'react';
+import react, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { removeEmployee } from '../../actions/employee.action';
 import { logout } from '../../actions/login.action';
@@ -66,6 +66,23 @@ const Dashboard = () => {
 
 
     console.log(loggedID)
+
+    var [date,setDate] = useState(new Date());
+    
+    useEffect(() => {
+        var timer = setInterval(()=>setDate(new Date()), 1000 )
+        return function cleanup() {
+            clearInterval(timer)
+        }
+    
+    });
+
+
+
+
+
+
+
     return (
         <>
         <div id="main-wrapper">
@@ -77,7 +94,7 @@ const Dashboard = () => {
                             <li><h4><span>INT</span> Employee Management</h4></li>
                         </ul>
                         <ul className="headerRight">
-                            <li>Welcome <strong>{name}</strong></li>
+                        <li>Date : {date.toLocaleDateString()} | Time : {date.toLocaleTimeString()}</li>
                             <li><button className="btn btn-primary btn-sm" onClick={() => dispatch(logout())}> Logout</button></li>
                         </ul>
                     </div>
@@ -87,12 +104,22 @@ const Dashboard = () => {
             <div className="container">
 
                 <div>
+                <div className="row page-titles">
+    <div className="col-sm-6">
+        <div className="welcome-text">
+            <h4>Hi, {name} welcome back!</h4>
+        </div>
+    </div>
+    <div className='col-sm-6'>
+    <Button color="success" className='float-end'
+                onClick={toggle}>Add Employee</Button>
+    </div>
+</div>
                     <div className="row ">
                         <div className="col-md-12">
                             
+                        
 
-            <Button color="primary"
-                onClick={toggle}>Add Employee</Button>
             <Modal isOpen={modal}
                 toggle={toggle}
                 modalTransition={{ timeout: 1000 }}>

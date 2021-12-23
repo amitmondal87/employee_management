@@ -15,6 +15,11 @@ const initialValues = {
     cpassword: ''
 };
 
+// For Password Hashed
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(6);
+
+
 const Registration = () => {
 const dispatch = useDispatch();
 const userData = useSelector((state) => state.newRegister.newRegister);
@@ -38,12 +43,20 @@ const validationSchema = Yup.object().shape({
 
 const date = new Date()
 const handleSubmit = (values, actions) => {
+
+
+    const password = values.password
+    const cpassword = values.cpassword
+    const hashedPassword = bcrypt.hashSync(password, salt);
+    const hashedConfirmPassword = bcrypt.hashSync(cpassword, salt);
+
     let registrationData = {
         id: 'INT'.toUpperCase() + date.getTime().toString(),
         name: values.name,
         email: values.email,
-        password: values.password,
-        cpassword: values.cpassword
+        password: hashedPassword,
+        cpassword: hashedConfirmPassword,
+        
     }
 
     dispatch(NewRegister(registrationData,
@@ -134,6 +147,7 @@ const handleSubmit = (values, actions) => {
                                                 name='password' 
                                                 id='password' 
                                                 placeholder='Enter Password *'
+                                                maxLength={6}
                                                 onChange={handleChange}
                                                 value={values.password}
                                                 onBlur={() => setFieldTouched("password")}
@@ -151,6 +165,7 @@ const handleSubmit = (values, actions) => {
                                                 name='cpassword' 
                                                 id='cpassword'
                                                 placeholder='Enter Confirm Password *'
+                                                maxLength={6}
                                                 onChange={handleChange}
                                                 value={values.cpassword}
                                                 onBlur={() => setFieldTouched("cpassword")}

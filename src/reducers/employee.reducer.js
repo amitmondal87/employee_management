@@ -16,7 +16,7 @@ const addEmployee = (state = initialStates, action) => {
 
         case EDIT_EMPLOYEE:
             const index = state.addEmployee.findIndex(user => user.email === action.payload.email); 
-            console.log(index);
+           // console.log(index);
             const updatedEmployee = [...state.addEmployee];
             updatedEmployee[index].name = action.payload.name;
             updatedEmployee[index].phone = action.payload.phone;

@@ -26,9 +26,7 @@ const EmployeeForm = () => {
 
 
         dispatch(addEmployee(userData,
-            (success) => {
-                alert('hi')
-               
+            (success) => {              
                 actions.resetForm()
             },
             (err) => {
@@ -38,7 +36,7 @@ const EmployeeForm = () => {
 
     }
 
-
+    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
     const validationSchema = Yup.object().shape({
         name: Yup.string()
             .trim()
@@ -49,7 +47,7 @@ const EmployeeForm = () => {
             .required("Please enter your email")
             .email("Enter valid Email Id"),
 
-        phone: Yup.string()
+        phone: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
             .required("Please enter your phone number"),
         address: Yup.string()
             .required("Please enter your address")

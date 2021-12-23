@@ -10,6 +10,9 @@ const initialValues = {
     address: ''
 
 };
+
+
+
 const UpdatedEmployeeForm = (props) => {
 
     const dispatch = useDispatch();
@@ -18,7 +21,7 @@ const UpdatedEmployeeForm = (props) => {
     const [userData, setUserData] = useState({})
 
     useEffect(() => {
-        const editEmployeeDetails = editEmployeeData.find(user => user.email === props.getUserEmail)
+        const editEmployeeDetails = editEmployeeData.find(user => user.email === props.getUserEmail) && editEmployeeData.find(user => user.phonr === props.getUserPhone)
         setUserData(editEmployeeDetails)
 
     }, []);

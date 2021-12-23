@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 export const addEmployee = (payload, onSuccess, onError) => {
     return (dispatch, getState) => {
         const registerUser = getState().addEmployee.addEmployee
-        const userExist = registerUser.some(({ email }) => email === payload.email)
+        const userExist = registerUser.some(({ email }) => email === payload.email) || registerUser.some(({ phone }) => phone === payload.phone)
         if (!userExist) {
             dispatch({
                 type: ADD_EMPLOYEE,
@@ -13,9 +13,15 @@ export const addEmployee = (payload, onSuccess, onError) => {
             toast.success("You have successfully Added");
             document.getElementById("addNewEmployeeForm").reset()
         }
+        else if (registerUser.some(({ phone }) => phone === payload.phone)){
+            toast.warn("Phone no is already exist !");
+            onError && onError({ phone: "Phone no is already exist !",});
+        }  
+        
         else {
-            toast.warn("Email Id is already exist. Please use an another email ID");
-            onError && onError({ email: "Email Id is already exist. Please use an another email ID " });
+            toast.warn("Email Id is already exist !");
+            onError && onError({ email: "Email Id is already exist ! ",
+         });
         }
     };
 };
@@ -23,8 +29,8 @@ export const addEmployee = (payload, onSuccess, onError) => {
 
 export const editEmployee = (payload, onSuccess, onError) => {
     return (dispatch, getState) => {
-        const registerUser = getState().addEmployee.addEmployee
-        const userExist = registerUser.some(({ email }) => email === payload.email)
+        const editregisterUser = getState().addEmployee.addEmployee
+        const userExist = editregisterUser.some(({ email }) => email === payload.email) && editregisterUser.some(({ phone }) => phone === payload.phone)
         if (userExist) {
             dispatch({
                 type: EDIT_EMPLOYEE,
@@ -33,9 +39,17 @@ export const editEmployee = (payload, onSuccess, onError) => {
             toast.success("Data successfully updated.");
             console.log(onSuccess);
         }
+        else if (editregisterUser.some(({ email }) => email === payload.email)) {
+            toast.warn("You Can't change your phone no");
+            onError && onError({ 
+                phone: "You Can't change your phone no" 
+            });
+        }
         else {
             toast.warn("You Can't change your email");
-            onError && onError({ email: "You Can't change your email" });
+            onError && onError({ 
+                email: "You Can't change your email" ,
+            });
         }
     };
 };

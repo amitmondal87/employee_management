@@ -35,3 +35,14 @@
 color: #593bdb;
 font-weight: bold;
 }
+
+.page-titles {
+	padding: 0.9375rem 1.25rem;
+	border-radius: 5px;
+}
+.page-titles h4 {
+	margin-bottom: 0;
+	margin-top: 0;
+	color: #fff;
+	font-size: 1.25rem;
+}
