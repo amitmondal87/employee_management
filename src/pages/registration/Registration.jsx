@@ -2,9 +2,11 @@ import React from 'react'
 import { Formik, Form as FormikForm } from "formik";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import { NewRegister } from '../../actions/register.action';
+
+
 const initialValues = {
     id: '',
     name: '',
@@ -16,7 +18,7 @@ const initialValues = {
 const Registration = () => {
 const dispatch = useDispatch();
 const userData = useSelector((state) => state.newRegister.newRegister);
-const navigate = useNavigate();
+//const navigate = useNavigate();
 const validationSchema = Yup.object().shape({
     name: Yup.string()
         .trim()
@@ -34,12 +36,6 @@ const validationSchema = Yup.object().shape({
         .oneOf([Yup.ref('password'), null], 'Confirm Password does not match'),
 })
 
-
-
-
-
-
-
 const date = new Date()
 const handleSubmit = (values, actions) => {
     let registrationData = {
@@ -52,13 +48,14 @@ const handleSubmit = (values, actions) => {
 
     dispatch(NewRegister(registrationData,
         (success) => {
-            alert('Success');
-            document.getElementById('registrationform').reset();
-            navigate("/login")
+            actions.resetForm()
+            actions.isSubmitting()
+           // navigate("/login")
             
         },
         (err) => {
             actions.setErrors(err)
+            actions.isSubmitting()
         }
     ));
 }
@@ -86,13 +83,23 @@ const handleSubmit = (values, actions) => {
                                 {({ values, errors, handleChange, touched, setFieldTouched }) => {
 
                                 return (
-                                        <FormikForm id='registrationform'>
+                                        <FormikForm>
+
+                                        {
+                                        errors.success ? (
+                                            <div className="alert alert-success"> {errors.success}</div>
+                                        ) : (null)
+                                        }
+
+
+
                                             <div className="form-group">
                                                 <label><strong>Name</strong></label>
                                                 <input type="text" 
                                                 className="form-control" 
                                                 name='name' 
                                                 id='name'
+                                                placeholder='Enter Your Name *'
                                                 onChange={handleChange}
                                                 value={values.name}
                                                 onBlur={() => setFieldTouched("name")}
@@ -109,6 +116,7 @@ const handleSubmit = (values, actions) => {
                                                 className="form-control" 
                                                 name='email' 
                                                 id='email'
+                                                placeholder='Enter Email *'
                                                 onChange={handleChange}
                                                 value={values.email}
                                                 onBlur={() => setFieldTouched("email")}
@@ -126,6 +134,7 @@ const handleSubmit = (values, actions) => {
                                                 className="form-control" 
                                                 name='password' 
                                                 id='password' 
+                                                placeholder='Enter Password *'
                                                 onChange={handleChange}
                                                 value={values.password}
                                                 onBlur={() => setFieldTouched("password")}
@@ -142,6 +151,7 @@ const handleSubmit = (values, actions) => {
                                                 className="form-control" 
                                                 name='cpassword' 
                                                 id='cpassword'
+                                                placeholder='Enter Confirm Password *'
                                                 onChange={handleChange}
                                                 value={values.cpassword}
                                                 onBlur={() => setFieldTouched("cpassword")}
@@ -153,7 +163,10 @@ const handleSubmit = (values, actions) => {
                                                 }
                                             </div>
                                             <div className="text-center mt-4">
-                                                <button type="submit" className="btn btn-primary btn-block">Register</button>
+                                                <button 
+                                                type="submit" 
+                                                className="btn btn-primary btn-block"
+                                                >Register</button>
                                             </div>
                                         </FormikForm>
                                          );

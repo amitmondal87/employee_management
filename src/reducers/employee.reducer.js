@@ -1,4 +1,4 @@
-import { ADD_EMPLOYEE, REMOVE_EMPLOYEE } from "../action-types/action.types";
+import { ADD_EMPLOYEE, REMOVE_EMPLOYEE, EDIT_EMPLOYEE } from "../action-types/action.types";
 
 
 const initialStates = {
@@ -13,8 +13,22 @@ const addEmployee = (state = initialStates, action) => {
                 ...state,
                 addEmployee: [...state.addEmployee, newUser]
             };
+
+        case EDIT_EMPLOYEE:
+            const index = state.addEmployee.findIndex(user => user.email === action.payload.email); 
+            console.log(index);
+            const updatedEmployee = [...state.addEmployee];
+            updatedEmployee[index].name = action.payload.name;
+            updatedEmployee[index].phone = action.payload.phone;
+            updatedEmployee[index].address = action.payload.address;
+
+            return {
+                ...state,
+                addEmployee: updatedEmployee
+
+            };
+
         case REMOVE_EMPLOYEE:
-            // console.log(action.payload.email)
             const removeEmployee = action.payload.email
             console.log(removeEmployee)
 

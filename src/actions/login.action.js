@@ -3,7 +3,7 @@ import {
 	LOGIN,
 	LOGOUT,
 } from '../action-types/action.types';
-
+import { toast } from "react-toastify";
 import { NewRegister } from './register.action';
 
 
@@ -18,9 +18,11 @@ export const login = (payload, id, onSuccess, onError) => {
 				type: LOGIN,
 				payload,
 				id
-			})
+			});
+			toast.success("You have successfully Signing in");
 		}
 		else {
+			toast.warn("Invalid user details");
 			onError && onError({ password: "Invalid user details" });
 		}
 	};

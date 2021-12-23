@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form as FormikForm } from "formik";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
-import { addEmployee } from '../../actions/employee.action';
+import { editEmployee } from '../../actions/employee.action';
 const initialValues = {
     name: '',
     email: '',
@@ -10,9 +10,29 @@ const initialValues = {
     address: ''
 
 };
-const EmployeeForm = () => {
+const UpdatedEmployeeForm = (props) => {
+
     const dispatch = useDispatch();
     const loggedUserId = useSelector((state) => state.authlogin.id);
+    const editEmployeeData = useSelector((state) => state.addEmployee.addEmployee);
+    const [userData, setUserData] = useState({})
+
+    useEffect(() => {
+        const editEmployeeDetails = editEmployeeData.find(user => user.email === props.getUserEmail)
+        setUserData(editEmployeeDetails)
+
+    }, []);
+
+
+
+
+
+
+
+
+
+
+
 
     const handleSubmit = (values, actions) => {
         let userData = {
@@ -25,11 +45,10 @@ const EmployeeForm = () => {
 
 
 
-        dispatch(addEmployee(userData,
+        dispatch(editEmployee(userData,
             (success) => {
-                alert('hi')
-               
-                actions.resetForm()
+                actions.setErrors(success)
+
             },
             (err) => {
                 actions.setErrors(err)
@@ -57,6 +76,12 @@ const EmployeeForm = () => {
     })
 
 
+    const updatedInitialValues = Object.assign(initialValues, {
+        name: userData && Object.keys(userData).length > 0 ? userData.name : "",
+        email: userData && Object.keys(userData).length > 0 ? userData.email : "",
+        phone: userData && Object.keys(userData).length > 0 ? userData.phone : "",
+        address: userData && Object.keys(userData).length > 0 ? userData.address : "",
+    })
 
 
     return (
@@ -69,10 +94,10 @@ const EmployeeForm = () => {
                 {({ values, errors, handleChange, touched, setFieldTouched }) => {
 
                     return (
-                        <FormikForm id="addNewEmployeeForm"> 
+                        <FormikForm id="employeeDataUpdate"> 
                         {
                             errors.success ? (
-                            <div className="alert alert-success"> {errors.success}</div>
+                                <div className="alert alert-success"> {errors.success}</div>
                             ) : (null)
                         }
                         <div className="row no-gutters">
@@ -160,7 +185,7 @@ const EmployeeForm = () => {
                                     className="btn btn-primary"
                                     type="submit"
                                 >
-                                    Add Employee
+                                    Update
                                 </button>
                             </div>
                             </div>
@@ -173,4 +198,4 @@ const EmployeeForm = () => {
     );
 };
 
-export default EmployeeForm;
+export default UpdatedEmployeeForm;

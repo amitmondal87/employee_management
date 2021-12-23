@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Formik, Form as FormikForm } from "formik";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import { login } from '../../actions/login.action';
 
@@ -15,11 +15,14 @@ const initialValues = {
 
 const Login = () => {
 
-const dispatch = useDispatch();
-const navigate = useNavigate();
-const userData = useSelector((state) => state.authlogin.userData);
-const isloggedin = useSelector((state) => state.authlogin.isloggedin);
 
+
+
+const dispatch = useDispatch();
+//const navigate = useNavigate();
+const userData = useSelector((state) => state.authlogin.userData);
+let isloggedin = useSelector((state) => state.authlogin.isloggedin); 
+console.log(isloggedin); 
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -45,18 +48,23 @@ const handleSubmit = (values, actions) => {
 
     dispatch(login(loginData,
         (success) => {
-            alert('Success')
+            actions.setSubmitting(false)
 
         },
         (err) => {
             alert('Failed')
             actions.setErrors(err)
+            actions.setSubmitting(false)
         }
     ))
 
 }
 
-if (isloggedin) return navigate("/dashboard")
+useEffect(() => {
+    
+   
+}, [])
+if (isloggedin) return <Redirect to={{ pathname: '/dashboard' }} /> 
     return ( 
 <div className="authincation h-100">
     <div className="container-fluid h-100">
@@ -72,7 +80,7 @@ if (isloggedin) return navigate("/dashboard")
                                 validationSchema={validationSchema}
                                 onSubmit={handleSubmit}
                                  >
-                                 {({ values, errors, handleChange, touched, setFieldTouched }) => {
+                                 {({ values, errors, handleChange, touched, setFieldTouched, dirty, isSubmitting }) => {
 
                                 return (
                                         <FormikForm>
@@ -113,7 +121,11 @@ if (isloggedin) return navigate("/dashboard")
                                             }
                                                 </div>
                                         <div className="text-center mt-4">
-                                            <button type="submit" className="btn btn-primary btn-block">Login</button>
+                                            <button 
+                                            type="submit" 
+                                            className="btn btn-primary btn-block"
+                                            disabled={isSubmitting || !dirty}
+                                            >Login</button>
                                         </div>
                                         </FormikForm>
                                         );
