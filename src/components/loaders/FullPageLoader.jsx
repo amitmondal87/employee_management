@@ -6,10 +6,10 @@ const SrlLogoLoader = () => {
 			<div className="text-center">
 				<img src={isWebpSupported ? 'webploader' : 'normalloader'} alt="icon" />
 				</div>
-			<div class="sk-three-bounce">
-            <div class="sk-child sk-bounce1"></div>
-            <div class="sk-child sk-bounce2"></div>
-            <div class="sk-child sk-bounce3"></div>
+			<div className="sk-three-bounce">
+            <div className="sk-child sk-bounce1"></div>
+            <div className="sk-child sk-bounce2"></div>
+            <div className="sk-child sk-bounce3"></div>
         </div>
 			
 		</div>

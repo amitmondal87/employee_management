@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Formik, Form as FormikForm } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
 import { editEmployee } from '../../actions/employee.action';
@@ -22,14 +22,6 @@ const UpdatedEmployeeForm = (props) => {
         setUserData(editEmployeeDetails)
 
     }, []);
-
-
-
-
-
-
-
-
 
 
 
@@ -75,7 +67,7 @@ const UpdatedEmployeeForm = (props) => {
 
     })
 
-
+// For new data updated against old data 
     const updatedInitialValues = Object.assign(initialValues, {
         name: userData && Object.keys(userData).length > 0 ? userData.name : "",
         email: userData && Object.keys(userData).length > 0 ? userData.email : "",
@@ -94,7 +86,7 @@ const UpdatedEmployeeForm = (props) => {
                 {({ values, errors, handleChange, touched, setFieldTouched }) => {
 
                     return (
-                        <FormikForm id="employeeDataUpdate"> 
+                        <Form> 
                         {
                             errors.success ? (
                                 <div className="alert alert-success"> {errors.success}</div>
@@ -190,7 +182,7 @@ const UpdatedEmployeeForm = (props) => {
                             </div>
                             </div>
                             </div>
-                        </FormikForm>
+                        </Form>
                     );
                 }}
             </Formik>

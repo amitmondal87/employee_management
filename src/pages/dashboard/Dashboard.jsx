@@ -4,13 +4,17 @@ import { removeEmployee } from '../../actions/employee.action';
 import { logout } from '../../actions/login.action';
 import EmployeeForm from './EmployeeForm';
 import UpdatedEmployeeForm from './UpdatedEmployeeForm';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Overlay from 'react-bootstrap/Overlay';
 import './dashboard.css';
+
 import {
     Button, Modal, ModalFooter,
     ModalHeader, ModalBody
 } from "reactstrap"
 import React from 'react';
-  
+import { Tooltip } from 'react-bootstrap';
+import Swal from 'sweetalert2' 
 
 const Dashboard = () => {
     //Modal
@@ -24,6 +28,7 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     const registeredUsers = useSelector((state) => state.newRegister.newRegister)
     const email = useSelector((state) => state.authlogin.email);
+    const name = useSelector((state) => state.authlogin.name);
     const loggedID = useSelector((state) => state.authlogin.id);
     const users = useSelector((state) => state.addEmployee.addEmployee)
     const filteredUserList = users.filter(user => user.id == loggedID)
@@ -37,6 +42,29 @@ const Dashboard = () => {
         // console.log(userEmail)
 
     }
+
+    const delUserHandler = (email) =>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+              dispatch(removeEmployee (email))
+            }
+          })
+    }
+
+
     console.log(loggedID)
     return (
         <>
@@ -49,14 +77,14 @@ const Dashboard = () => {
                             <li><h4><span>INT</span> Employee Management</h4></li>
                         </ul>
                         <ul className="headerRight">
-                            <li>Welcome {email}</li>
+                            <li>Welcome <strong>{name}</strong></li>
                             <li><button className="btn btn-primary btn-sm" onClick={() => dispatch(logout())}> Logout</button></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-            <div className="container pt-5 pb-5">
+            <div className="container">
 
                 <div>
                     <div className="row ">
@@ -79,7 +107,7 @@ const Dashboard = () => {
                             <div className="card mt-3">
                                 <div className="card-body">
                                     <div className="table-responsive">
-                                        <table className="table">
+                                        <table className="table table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
@@ -98,8 +126,30 @@ const Dashboard = () => {
                                                         <td>{user.phone}</td>
                                                         <td>{user.address}</td>
                                                         <td>
-                                                        <button className="btn btn-outline-warning btn-sm m-1" onClick={() => editUserHandler(user.email)}>Edit</button>
-                                                        <button className="btn btn-danger btn-sm m-1" onClick={() => dispatch(removeEmployee(user.email))}>Remove</button></td>
+
+                                                        <OverlayTrigger 
+                                                        placement="bottom"
+                                                        overlay={
+                                                        <Tooltip id="button-tooltip">
+                                                        Edit Employee Details
+                                                        </Tooltip>
+                                                        }
+                                                        >
+                                                        <button className="btn btn-success btn-sm m-1" onClick={() => editUserHandler(user.email)}>Edit</button>
+                                                        </OverlayTrigger>
+
+                                                        <OverlayTrigger 
+                                                        placement="bottom"
+                                                        overlay={
+                                                        <Tooltip id="button-tooltip">
+                                                        Remove Employee Details
+                                                        </Tooltip>
+                                                        }
+                                                        >
+                                                        <button className="btn btn-danger btn-sm m-1" onClick={() => delUserHandler(user.email)}>Remove</button>
+                                                        </OverlayTrigger>
+                                                       
+                                                        </td>
                                                     </tr>
                                                 ) :
                                                     <tr className="alert alert-danger">

@@ -4,6 +4,7 @@ const initialStates = {
 	isloggedin: false,
 	email: '',
 	id: '',
+	name: '',
 	errorMsg: '',
 };
 
@@ -15,7 +16,8 @@ const authlogin = (state = initialStates, action) => {
 				...state,
 				isloggedin: true,
 				email: action.payload.email,
-				id: action.id
+				id: action.id,
+				name: action.name
 			};
 		case LOGOUT:
 			return {

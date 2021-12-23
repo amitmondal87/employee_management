@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import { Formik, Form as FormikForm } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from 'react-router-dom';
@@ -80,10 +80,10 @@ if (isloggedin) return <Redirect to={{ pathname: '/dashboard' }} />
                                 validationSchema={validationSchema}
                                 onSubmit={handleSubmit}
                                  >
-                                 {({ values, errors, handleChange, touched, setFieldTouched, dirty, isSubmitting }) => {
+                                 {({ values, errors, handleChange, touched, setFieldTouched }) => {
 
                                 return (
-                                        <FormikForm>
+                                        <Form>
                                         <div className="form-group">
                                             <label><strong>Email</strong></label>
                                             <input type="email" 
@@ -124,10 +124,10 @@ if (isloggedin) return <Redirect to={{ pathname: '/dashboard' }} />
                                             <button 
                                             type="submit" 
                                             className="btn btn-primary btn-block"
-                                            disabled={isSubmitting || !dirty}
+    
                                             >Login</button>
                                         </div>
-                                        </FormikForm>
+                                        </Form>
                                         );
                                     }}
                                 </Formik>

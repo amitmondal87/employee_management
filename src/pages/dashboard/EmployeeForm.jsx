@@ -1,5 +1,5 @@
 import React from 'react';
-import { Formik, Form as FormikForm } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
 import { addEmployee } from '../../actions/employee.action';
@@ -69,7 +69,7 @@ const EmployeeForm = () => {
                 {({ values, errors, handleChange, touched, setFieldTouched }) => {
 
                     return (
-                        <FormikForm id="addNewEmployeeForm"> 
+                        <Form id="addNewEmployeeForm"> 
                         {
                             errors.success ? (
                             <div className="alert alert-success"> {errors.success}</div>
@@ -165,7 +165,7 @@ const EmployeeForm = () => {
                             </div>
                             </div>
                             </div>
-                        </FormikForm>
+                        </Form>
                     );
                 }}
             </Formik>

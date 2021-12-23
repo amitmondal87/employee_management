@@ -1,5 +1,5 @@
 import React from 'react'
-import { Formik, Form as FormikForm } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from 'react-router-dom';
@@ -50,7 +50,6 @@ const handleSubmit = (values, actions) => {
         (success) => {
             actions.resetForm()
             actions.isSubmitting()
-           // navigate("/login")
             
         },
         (err) => {
@@ -83,7 +82,7 @@ const handleSubmit = (values, actions) => {
                                 {({ values, errors, handleChange, touched, setFieldTouched }) => {
 
                                 return (
-                                        <FormikForm>
+                                        <Form>
 
                                         {
                                         errors.success ? (
@@ -166,9 +165,10 @@ const handleSubmit = (values, actions) => {
                                                 <button 
                                                 type="submit" 
                                                 className="btn btn-primary btn-block"
+        
                                                 >Register</button>
                                             </div>
-                                        </FormikForm>
+                                        </Form>
                                          );
                                     }}
                                 </Formik>

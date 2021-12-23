@@ -9,15 +9,17 @@ import { NewRegister } from './register.action';
 
 
 
-export const login = (payload, id, onSuccess, onError) => {
+export const login = (payload, id, name, onSuccess, onError) => {
 	return (dispatch, getState) => {
 		const newRegister = getState().newRegister.newRegister
 		if (newRegister.find(({ email }) => email === payload.email) && newRegister.find(({ password }) => password === payload.password)) {
 			id = newRegister.find(({ email }) => email === payload.email).id
+			name = newRegister.find(({ email }) => email === payload.email).name
 			dispatch({
 				type: LOGIN,
 				payload,
-				id
+				id,
+				name
 			});
 			toast.success("You have successfully Signing in");
 		}

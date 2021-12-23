@@ -42,11 +42,14 @@ export const editEmployee = (payload, onSuccess, onError) => {
 
 export const removeEmployee = (userEmail) => {
     return (dispatch) => {
+
         dispatch({
             type: REMOVE_EMPLOYEE,
             payload: {
                 email: userEmail
             }
+
         });
+        
     }
 }
