@@ -158,10 +158,22 @@ const Dashboard = () => {
   
 
                             <div className="card mt-3">
+                            <div className="card-header">
+                                <h4 className="card-title">Employee Details</h4>
+                                <OverlayTrigger 
+                                placement="bottom"
+                                overlay={
+                                <Tooltip id="button-tooltip">
+                                Add Employee Details
+                                </Tooltip>
+                                }
+                                >
+                                <Button color="success" className='float-end btn-sm' onClick={toggle}>Add Employee</Button>
+                                </OverlayTrigger>
+                            </div>
                                 <div className="card-body">
-                                <Button color="success" className='float-end'
-                onClick={toggle}>Add Employee</Button>
-                <div className='clearfix'></div>
+                                
+
                                     <div className="table-responsive">
                                         <table className="table table-striped">
                                             <thead>
