@@ -17,6 +17,7 @@ import {
 //Tostify Alert
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/style.css'
 
@@ -60,7 +61,7 @@ function App() {
       <Route path="/" component={Routes} />
     </Switch>
    </ErrorBoundary>
-    <ToastContainer />
+    <ToastContainer  theme="colored" />
     </>
   );
 }
