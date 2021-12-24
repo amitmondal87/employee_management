@@ -36,13 +36,62 @@ color: #593bdb;
 font-weight: bold;
 }
 
-.page-titles {
-	padding: 0.9375rem 1.25rem;
-	border-radius: 5px;
+.page-titles h5 {
+font-style: italic;
+color: cornsilk;
 }
 .page-titles h4 {
-	margin-bottom: 0;
+	margin-bottom: 10px;
 	margin-top: 0;
 	color: #fff;
 	font-size: 1.25rem;
+}
+
+.page-titles h4 span{font-style: italic;
+	color: cornsilk; font-weight: 300;}
+
+	.welcome-text{
+		display: flex;
+		align-items: center;
+	}
+
+	.profile{
+		width: 100px;
+		height: 100px;
+		border-radius: 100%;
+		background-color: cornsilk;
+		overflow: hidden;
+		border: 6px solid #ccc;
+		margin-right: 15px;
+	}
+
+	@media only screen and (max-width: 767px) {
+		.topHeader{
+			margin-bottom: 20px;
+			height: auto;
+			padding: 10px;
+		}
+	}
+
+	@media only screen and (max-width: 650px) {
+		.topHeaderinner {
+			display: block;
+			margin: 0 auto;
+			text-align: center;
+		}
+	}
+
+	@media only screen and (max-width: 480px) {
+	.welcome-text {
+		display: block;
+		align-items: center;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.profile {
+		display: block;
+		margin: 0 auto;
+		margin-bottom: 15px;
+	}
 }

@@ -30,21 +30,16 @@ export const addEmployee = (payload, onSuccess, onError) => {
 export const editEmployee = (payload, onSuccess, onError) => {
     return (dispatch, getState) => {
         const editregisterUser = getState().addEmployee.addEmployee
-        const userExist = editregisterUser.some(({ email }) => email === payload.email) && editregisterUser.some(({ phone }) => phone === payload.phone)
+        const userExist = editregisterUser.some(({ email }) => email === payload.email)
         if (userExist) {
             dispatch({
                 type: EDIT_EMPLOYEE,
                 payload
             })
             toast.success("Data successfully updated.");
-            console.log(onSuccess);
+
         }
-        else if (editregisterUser.some(({ email }) => email === payload.email)) {
-            toast.warn("You Can't change your phone no");
-            onError && onError({ 
-                phone: "You Can't change your phone no" 
-            });
-        }
+       
         else {
             toast.warn("You Can't change your email");
             onError && onError({ 

@@ -21,7 +21,7 @@ const UpdatedEmployeeForm = (props) => {
     const [userData, setUserData] = useState({})
 
     useEffect(() => {
-        const editEmployeeDetails = editEmployeeData.find(user => user.email === props.getUserEmail) && editEmployeeData.find(user => user.phonr === props.getUserPhone)
+        const editEmployeeDetails = editEmployeeData.find(user => user.email === props.getUserEmail)
         setUserData(editEmployeeDetails)
 
     }, []);
@@ -179,6 +179,7 @@ const UpdatedEmployeeForm = (props) => {
                                     variant="primary"
                                     className="btn btn-primary"
                                     type="submit"
+                                    
                                 >
                                     Update
                                 </button>

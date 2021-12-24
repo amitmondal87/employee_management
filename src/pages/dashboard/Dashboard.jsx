@@ -79,9 +79,30 @@ const Dashboard = () => {
 
 
 
+    var now = new Date();
+    var hrs = now.getHours();
+    var msg = "";
+    
+    if (hrs >  0) msg = "Mornin' Sunshine! and Welcome back!"; // REALLY early
+    if (hrs >  6) msg = "Good morning and Welcome back!";      // After 6am
+    if (hrs > 12) msg = "Good afternoon and Welcome back!";    // After 12pm
+    if (hrs > 17) msg = "Good evening and Welcome back!";      // After 5pm
+    if (hrs > 22) msg = "Go to bed!";        // After 10pm
 
 
 
+    var weekday = new Array(7);
+
+    weekday[0] = "spectacular Sunday";
+    weekday[1] = "marvelous Monday";
+    weekday[2] = "terrific Tuesday";
+    weekday[3] = "wonderful Wednesday";
+    weekday[4] = "totally cool Thursday";
+    weekday[5] = "fantastic Friday";
+    weekday[6] = "sweet Saturday";
+
+    var currentDate = new Date();
+    var weekdayValue = currentDate.getDay();
 
     return (
         <>
@@ -105,15 +126,18 @@ const Dashboard = () => {
 
                 <div>
                 <div className="row page-titles">
-    <div className="col-sm-6">
+    <div className="col-sm-12">
         <div className="welcome-text">
-            <h4>Hi, {name} welcome back!</h4>
+        <div className="profile"><img src="//joeschmoe.io/api/v1/{name} " /> </div>
+        <div>
+            <h4>Hi {name}, <span>{msg}</span></h4>
+            <h5>Have a {weekday[weekdayValue]} ! </h5>
+        </div>
+
+            
         </div>
     </div>
-    <div className='col-sm-6'>
-    <Button color="success" className='float-end'
-                onClick={toggle}>Add Employee</Button>
-    </div>
+
 </div>
                     <div className="row ">
                         <div className="col-md-12">
@@ -133,6 +157,9 @@ const Dashboard = () => {
 
                             <div className="card mt-3">
                                 <div className="card-body">
+                                <Button color="success" className='float-end'
+                onClick={toggle}>Add Employee</Button>
+                <div className='clearfix'></div>
                                     <div className="table-responsive">
                                         <table className="table table-striped">
                                             <thead>
