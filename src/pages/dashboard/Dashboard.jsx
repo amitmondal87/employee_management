@@ -77,6 +77,8 @@ const Dashboard = () => {
     
     });
 
+    // For Profile Pics
+    var profileIcon = `https://joeschmoe.io/api/v1/${name}`
 
 
     var now = new Date();
@@ -128,7 +130,7 @@ const Dashboard = () => {
                 <div className="row page-titles">
     <div className="col-sm-12">
         <div className="welcome-text">
-        <div className="profile"><img src="//joeschmoe.io/api/v1/{name} " /> </div>
+        <div className="profile"><img src={profileIcon} /> </div>
         <div>
             <h4>Hi {name}, <span>{msg}</span></h4>
             <h5>Have a {weekday[weekdayValue]} ! </h5>
